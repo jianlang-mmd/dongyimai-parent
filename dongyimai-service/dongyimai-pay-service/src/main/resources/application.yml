@@ -1,0 +1,44 @@
+server:
+  port: 9009
+spring:
+  application:
+    name: dym-pay
+  redis:
+    host: 192.168.244.131
+    port: 6379
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+# 配置sql打印日志
+logging:
+  level:
+    com:
+     lang: debug
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          strategy: SEMAPHORE
+
+#支付宝支付信息配置
+alipay:
+  serverUrl: https://openapi.alipaydev.com/gateway.do
+  appId: 2021000118616474
+  privateKey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCSOzLOHZUlCHt/womwFk42134lQ8EbS+UFIsWr6Dy7N0ZWVd+7xZ8ad3cLakv69vvSIWDScujr6zvXvMLBgFySjE9XM5xiYQCwGcoN139q2g/+ndYJUWOwnTIHFc/7FBjkfhmJvouMBT91uDeq5NvSzsSRzAEkV0bP9jNq+NBMnaVaG+eUZ3oJLTffqpeJlrcG6LxWGKNfTSQcO/tDaInR4IgCjgHdBUy0lPvCVe8YItMpMmjxDIdwpjdanUiV+z8yeZ9cdhxbm7ccWVwn3VTgf1ZPhHJpCB7v8jDZWhHD3KQB57b5b8sKkIpUPZg/npKteDVjdi0qqCexxe6lzPZLAgMBAAECggEAVFwygxYt5J9wH9Rq+lrj5F+NNpJP5R9zj/Lvdq0T3C2XNld0Ky9nCi3BT6STEMVLoX4ADWidVvzuGRecg2U6ApFPdE8h+N9dNjqqhjG8IDiM4abMw7Ngf5MwOUYsJf0CH09gDEcQ2kZsxczw0HYXGxaN8E5wmjZ/c5nlL+E6yfeIvdOZoviM9GbWQQLLa1LODTQPorZ6o4q4HZAi6z2jtTuGyoIFL6wxW4SZ1jm74zAp6mhSycwjX9QV3q14Cg4jYAFYIKkbXa6UGeDL1iTuoNc1hl6kBQwGqFqkvlw+RkDam3kk0sVDMpsD5yPM+jqv4jNOuaqlV8K2Eadz7EYugQKBgQDNHHpHe2fDFeZuJ/orZgO0KmL3fzNk+sgiiNhovRe6XeMQp5YsCroNmpVTUY8B8rGZad/UrlNqs7WKJHNFbBhnDkrKSoQsILKh6tiBPNQywFXlwwHB8+U8HLMFsnPBo+zZGM4E2rkUwJLqpDBLL54bHo8Wv9l0Oql0kl6attHTDwKBgQC2gv3guvKbPJhLIH96c8FsmR9pdzFQasRN5atJwOwQb42whC9OR9SAl9iDGW7xSK2yeKv53cKqQNgLqaDrtj+01gpEiP+5XZ6I8r4+Uwiq6n7f08SYmTZOsvQcW2+0+C7Wvn+jhax87PEDPBRQpqWBAS81FdgZBBdOjnc3MvK5BQKBgGZ2mnNJJ52iPBm9aNDzRlhjcEsZRTBlw0LVP96az9au/jacsX1Q4n7XQU99B8a+WZA8/q79YviDy+W1rcv5YvtgfWYu8XYl43bVndB59btgr8h2sVMVpudvotLuwbrzS+dr58cvCJRgW0RSPzngEMiVbH+92UCh6XMth4scVxdrAoGAHFEGgq9+pIcqOb25CY6cG/VF4l8Tz55BBrTzdmXwOjyUhyZ7EHIkji8A8JYpmFXmXSJLzGCTq0aUPnr69Jc6Gxx6S1fWFTRpPGYtDg5j8eCf/qokfmiG/H7XUO7+zd0Tp023D+/Vayx32ECiBkFUvEcqw9m3xWnVE+MWrAHDluECgYBBCEBgkw17y3BL0EakldvunPbHluRE/48CzVjLobvPNPi/lA1TNjDUrXRMBBQir9G+xvmSGL4mK0MESEWveVaC6HzhKe9CW7qK5ZZlqYEwpUCY0FUGDM6RgVCVtg4A121Te622UkgTLes5HedOa3pyKUyTOeU1+aolHx/JqGtH4w==
+  format: json
+  charset: utf-8
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwR+slL+3Nbt+x4kIL7NuKeqMBzUOhnLOUCWacFUKIV3Dp59j2prTLKcSE+fgZCfCwIE51RM2b+EJaSFVsP421N+z69I5uq8ikyqcwGBrE0SDuwTX7wV/CVZh84xlTkoFirhjV5/uULwRvgog3UpaarEX8PvXYqszsFWvxRT9Lh5mgG7drnSwQIvNXCDUqQ0Fo46jIiQpQ3/rP6KSa8JqcsDJjmI07pKp5Ku2FQ7pQk6pWjkOMkYN03EmO7oUxKGEt+LNFaAZak+Fax1kyO/sob9uOhq8MrHn6z4WRYwsR4yukGkor3xxRgi8Q2i9xNrZWa1AcapONrEMJB/OGYx4dwIDAQAB
+  signType: RSA2

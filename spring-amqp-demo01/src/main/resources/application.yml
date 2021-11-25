@@ -1,0 +1,9 @@
+spring:
+  rabbitmq:
+    host: 192.168.244.131
+    port: 5672
+    username: keqing
+    password: lang520
+    listener:
+      simple:
+        prefetch: 1 #?????????

@@ -1,0 +1,36 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: dym-sellergoods #serviceId 服务的id，一个服务的集群，他们的应用名（服务的id）是一样的。
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.244.131:33306/dongyimaidb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    minIdle: 5      # 最小连接池数量
+    maxActive: 20   # 最大连接池数量
+    maxWait: 60000  # 获取连接时最大等待时间
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    prefer-ip-address: true #prefer-ip-address设置为true以IP地址注册到服务中心
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port} # 每一个实例的编号
+feign:
+  hystrix:
+    enabled: true
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰式编写规范  aaaBbbCcc
+  type-aliases-package: com.lang.sellergoods.pojo #实体类别名
+# 配置sql打印日志
+logging:
+  level:
+    com:
+      lang: debug

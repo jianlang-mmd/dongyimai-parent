@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: gateway-web
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': #匹配所有请求
+            allowedOrigins: "*" #跨域处理允许所有的域
+            allowedMethods: #支持的方法
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        #用户微服务路由配置
+        - id: dongyimai_user_route
+          uri: lb://DYM-USER
+          predicates:
+            - Path=/api/user/**,/api/address/**,/api/areas/**,/api/cities/**,/api/provinces/**
+          filters:
+            - StripPrefix=1
+        #        - id: dongyimai_goods_route
+        #          uri: http://localhost:9001
+        #          predicates:
+        #            - Path=/brand/**
+
+        #购物车微服务路由
+        - id: dongyimai_order_route
+          uri: lb://dym-order
+          predicates:
+            - Path=/api/cart/**,/api/order/**,/api/orderItem/**
+          filters:
+            - StripPrefix=1
+        #支付服务
+        - id: dongyimai_pay_route
+          uri: lb://dym-pay
+          predicates:
+            - Path=/api/pay/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
